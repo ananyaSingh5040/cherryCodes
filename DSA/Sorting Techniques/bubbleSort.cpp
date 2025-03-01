@@ -1,3 +1,4 @@
+//Bubble sort
 #include <bits/stdc++.h>
 using namespace std;
 int main()
@@ -10,7 +11,7 @@ int main()
     {
         for (int j = 0; j < n - i; j++)
         {
-            if (arr[j] > arr[j + 1])
+            if (arr[j] > arr[j  + 1])
             {
                 swap(arr[j], arr[j + 1]);
             }

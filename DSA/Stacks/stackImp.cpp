@@ -5,7 +5,7 @@ class Stack{
     public:
     int *arr;
     int top;
-    int size;
+    int size; 
 
     //behaviour using constructor:
     Stack(int size)

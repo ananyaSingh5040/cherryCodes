@@ -1,31 +1,75 @@
-//divides array from middle.
-//sorts the array by making elements individual and then placing them in their right position.
-//Divide And Conquer.
-//Recursion.
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
-void merge(int arr[],int s,int e)
+// TIME COMPLEXITY : O(N Log N);
+// SPACE COMPLEXITY: O(N);
+void merge(vector<int>& arr,int start, int mid, int end)
 {
+    //result store karne ke lie
+    vector<int> ans;
+    int left = start;
+    int right = mid+1;
+    while(left<=mid && right<=end)
+    {
+        if(arr[left]<=arr[right])
+        {
+            ans.push_back(arr[left]);
+            left++;
+        }
+        else
+        {
+            ans.push_back(arr[right]);
+            right++;
+        }
+    }
+    //checklist (agar 1st while ka koi ek condn false hota toh baaki ke bache elements add)
+    while(left<=mid)
+    {
+        ans.push_back(arr[left]);
+        left++;
+    }
+    while(right<=end)
+    {
+        ans.push_back(arr[right]);
+        right++;
+    }
+   for(int i= start; i<=end;i++)
+   {
+    arr[i]= ans[i-start]; //idhar correct indexing ke liye kar rahe i-start as ans sub- sorted array store maar raha toh correct indexing ke liye!
+   }
+
 
 }
-void mergeSort(int arr[],int s,int e)
+void mergeSort(vector<int>& arr, int start, int end)
 {
-    //Base Case:
-    if(s>=e)
-    return;
-    int mid= (s+e)/2;
+    //base case
+    if(start>=end) return; // inshort single element aagya toh return maardo.
 
-    //Left part Sorting:
-    merge(arr,s,mid);
+    //mid nikalna
+   int mid= start+ (end-start)/2;
 
-    //Right part Sorting:
-    merge(arr,mid+1,e);
+    //left part sorting
+    mergeSort(arr, start, mid);
 
+    //right part sorting
+    mergeSort(arr, mid+1,end);
+
+    //merge
+    merge(arr,start,mid,end);
 }
 int main()
 {
-    int arr[5]= {50,40,30,20,10};
-    int n=5;
+    vector<int> arr;
+    arr.push_back(6);
+    arr.push_back(3);
+    arr.push_back(44);
+    arr.push_back(21);
+    arr.push_back(1);
+    arr.push_back(5);
+    int n = arr.size();
     mergeSort(arr,0,n-1);
+    for(int i=0;i<n;i++)
+    {
+        cout<<arr[i]<<" ";
+    }
     return 0;
 }
